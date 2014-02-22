@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+# SharpDevelop 4.4
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3U8-downloader", "M3U8-downloader\M3U8-downloader.csproj", "{4B78A828-6021-4F83-A159-B78972AF24BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B78A828-6021-4F83-A159-B78972AF24BB}.Debug|x86.ActiveCfg = Debug|x86
+		{4B78A828-6021-4F83-A159-B78972AF24BB}.Debug|x86.Build.0 = Debug|x86
+		{4B78A828-6021-4F83-A159-B78972AF24BB}.Release|x86.ActiveCfg = Release|x86
+		{4B78A828-6021-4F83-A159-B78972AF24BB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = M3U8-downloader\M3U8-downloader.csproj
+		Policies = $0
+		$0.DotNetNamingPolicy = $1
+		$1.DirectoryNamespaceAssociation = None
+		$1.ResourceNamePolicy = FileFormatDefault
+		version = 0.3
+	EndGlobalSection
+EndGlobal
