@@ -349,7 +349,7 @@ namespace M3U8downloader
 								"En caso de que la descarga no esté finalizada detendrá la descarga y la quitará de la lista, dejando el archivo incompleto en la carpeta de descargas.<br>" +
 								"En caso de que la descarga esté finalizada, únicamente la quitará de la lista.</li>" +
 							"<li>Cerrar el programa.<br>" +
-								"Para cerrar el programa se debe de hacer clic en el botón. Al hacerlo, se mostrará una pregunta. En caso de que aceptemos, todas las descargas incompletas en curso se interrumpirán y después se cerrará el programa. De lo contrario únicamente se cerrará el programa. Una vez hecho esto cargará una nueva página en la que indicará que se puede cerrar la consola. La ventana negra que se abre junto con el programa.<br>En caso de cerrar esta ventana sin clicar antes en el botón de cerrar dejará las descargas en proceso abiertas, por lo que para detenerlas sería necesario cerrar el proceso en cuestión.</li>" +
+								"Para cerrar el programa se debe de hacer clic en el botón. Al hacerlo, se mostrará una pregunta. En caso de que aceptemos, todas las descargas incompletas en curso se interrumpirán y después se cerrará el programa. De lo contrario no se cerrará el programa. Una vez hecho esto cargará una nueva página en la que indicará que el programa se ha cerrado con éxito.<br>En caso de cerrar la consola (la ventana negra) en lugar de clicar en el botón de cerrar dejará las descargas en proceso abiertas, por lo que para detenerlas sería necesario cerrar el proceso en cuestión.</li>" +
 						"</ol>" +
 						"<a href=\"/\">atras</a>" +
 					"</div>" +
