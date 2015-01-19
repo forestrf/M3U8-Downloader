@@ -17,7 +17,7 @@ namespace M3U8downloader
 		public static string relativePath = "";
 		public static bool desdeServidor = false;
 
-		public static string version = "0.3";
+		public static string version = "0.4";
 		
 		public static int puerto = 25430;
 
