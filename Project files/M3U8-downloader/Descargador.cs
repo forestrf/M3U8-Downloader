@@ -143,7 +143,11 @@ namespace M3U8downloader
 
 			if (porcentajeInt == 0)
 				fallado = "Fallo";
-			
+			else {
+				porcentaje = 100;
+				porcentajeInt = 100;
+			}
+
 			return !cancelado;
 		}
 
