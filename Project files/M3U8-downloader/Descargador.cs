@@ -146,6 +146,7 @@ namespace M3U8downloader
 			else {
 				porcentaje = 100;
 				porcentajeInt = 100;
+				horaRestanteString = "Completado";
 			}
 
 			return !cancelado;
