@@ -17,7 +17,7 @@ namespace M3U8downloader
 		public static string relativePath = "";
 		public static bool desdeServidor = false;
 
-		public static string version = "0.4";
+		public static string version = "0.5";
 		
 		public static int puerto = 25430;
 
@@ -219,9 +219,9 @@ namespace M3U8downloader
 				return "";
 			}
 			
-			string pattern = "\n([^#]*)[\n$]";
+			string pattern = "\n([^#\n\r$]+)";
 			MatchCollection matchesURL = Regex.Matches (m3u8List, pattern);
-			pattern = "\n#EXT-X-STREAM-INF:(.*?(RESOLUTION|BANDWIDTH)=(.*?)[,\n].*?)*";
+			pattern = "\n#EXT-X-STREAM-INF:(.*?(RESOLUTION|BANDWIDTH)=(.*?)[,\r\n].*?)*";
 			MatchCollection matchesDESC = Regex.Matches (m3u8List, pattern);
 			//myServer.Envia(Utilidades.print_r_regex(matchesDESC));
 			
@@ -248,12 +248,12 @@ namespace M3U8downloader
 						for(int j=0; j<matchesDESC[i].Groups[2].Captures.Count; j++){
 							resp += matchesDESC[i].Groups[2].Captures[j].Value + ": " + matchesDESC[i].Groups[3].Captures[j].Value + (j != matchesDESC[i].Groups[2].Captures.Count -1 ? ", " : "");
 						}
-						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + extra + matchesURL[i].Groups[1].Captures[0].Value + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
+						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + Uri.EscapeUriString(extra + matchesURL[i].Groups[1].Captures[0].Value) + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
 					}
 				}
 				else{
 					for(int i=0; i<matchesURL.Count; i++){
-						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + extra + matchesURL[i].Groups[1].Captures[0].Value + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
+						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + Uri.EscapeUriString(extra + matchesURL[i].Groups[1].Captures[0].Value) + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
 					}
 				}
 			}

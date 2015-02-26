@@ -88,7 +88,7 @@ namespace M3U8downloader
 					Console.WriteLine ("Has introducido una lista de m3u8 o un archivo m3u8 sin archivos .ts");
 					
 					//Abre navegador
-					Process.Start("http://127.0.0.1:" + MainClass.puerto + "/?accion=seleccionarlista&urlm3u8=" + Uri.EscapeUriString(url) );
+					Process.Start("http://127.0.0.1:" + MainClass.puerto + "/?accion=seleccionarlista&urlm3u8=" + Uri.EscapeDataString(url) );
 
 					MainClass.borraDescarga(this);
 					
