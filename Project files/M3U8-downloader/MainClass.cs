@@ -17,7 +17,7 @@ namespace M3U8downloader
 		public static string relativePath = "";
 		public static bool desdeServidor = false;
 
-		public static string version = "0.5";
+		public static string version = "0.5.1";
 		
 		public static int puerto = 25430;
 
@@ -161,9 +161,11 @@ namespace M3U8downloader
 				if (accion == "seleccionarlista" && GETurl.existeParametro("urlm3u8")) {
 					//Mostrar un alert en caso de que se agregue una nueva descarga para conseguir el focus de la pestaña
 					String opciones = desglosaListaM3U8(GETurl.getParametro("urlm3u8"));
-					myServer.Envia (HTML.getSeleccionLista(opciones));
-					
-					
+					if (opciones != "") {
+						myServer.Envia (HTML.getSeleccionLista (opciones));
+					} else {
+						myServer.Envia("No se ha podido descargar la lista m3u8.");
+					}
 					continue;
 				}
 
@@ -248,12 +250,12 @@ namespace M3U8downloader
 						for(int j=0; j<matchesDESC[i].Groups[2].Captures.Count; j++){
 							resp += matchesDESC[i].Groups[2].Captures[j].Value + ": " + matchesDESC[i].Groups[3].Captures[j].Value + (j != matchesDESC[i].Groups[2].Captures.Count -1 ? ", " : "");
 						}
-						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + Uri.EscapeUriString(extra + matchesURL[i].Groups[1].Captures[0].Value) + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
+						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + Uri.EscapeDataString(extra + matchesURL[i].Groups[1].Captures[0].Value) + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
 					}
 				}
 				else{
 					for(int i=0; i<matchesURL.Count; i++){
-						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + Uri.EscapeUriString(extra + matchesURL[i].Groups[1].Captures[0].Value) + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
+						resp += "<div class=\"URL\"><a href=\"http://127.0.0.1:25430/?accion=descargar&url=" + Uri.EscapeDataString(extra + matchesURL[i].Groups[1].Captures[0].Value) + "\">" + extra + matchesURL[i].Groups[1].Captures[0].Value + "</a></div></div>";
 					}
 				}
 			}

@@ -45,6 +45,7 @@
     <Compile Include="Descargador.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="GetILocalFileBytes.cs" />
+    <Compile Include="DDebug.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

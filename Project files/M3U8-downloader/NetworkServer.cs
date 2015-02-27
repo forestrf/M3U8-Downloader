@@ -38,15 +38,23 @@ namespace M3U8downloader
 			try{
 
 				client = listener.AcceptTcpClient ();
-				//Console.WriteLine ("Conexion establecida");
+				DDebug.WriteLine ("Conexion establecida");
 
 				stream = client.GetStream ();
 				reader = new StreamReader (stream);
 				writer = new StreamWriter (stream);
+				stream.ReadTimeout = 30000;
 
+				// limpiar stream
+				string entrada = "";
+				while (entrada.Length < 4 || entrada.Substring(entrada.Length - 4, 4) != "\r\n\r\n") {
+					entrada += (char) reader.Read();
+				}
+				DDebug.WriteLine(entrada);
+				stream.Flush();
 
-				string GETurl = reader.ReadLine ();
-				
+				string GETurl = entrada.Substring(0, entrada.IndexOf("\r\n"));
+
 				if(GETurl != null){
 					string pattern = " (.*?) HTTP";
 					MatchCollection matches = Regex.Matches (GETurl, pattern);
@@ -58,7 +66,7 @@ namespace M3U8downloader
 						CaptureCollection cc = gc[1].Captures;
 						url = cc[0].Value;
 					}
-					//Console.WriteLine (url);
+					DDebug.WriteLine (url);
 	
 	
 					pattern = "\\?(&?([^=^&]+?)=([^&]*))*";
@@ -93,16 +101,13 @@ namespace M3U8downloader
 		public bool Envia (String que)
 		{
 			try {
+				DDebug.WriteLine ("Enviando desde Envia");
+
 				writer.WriteLine ("HTTP/1.1 200 OK");
 				writer.WriteLine ("Connection: Close");
 				writer.WriteLine ("Content-Type: text/html; charset=utf-8");
-				//writer.WriteLine ("Content-Length: " + que.Length);
 
 				writer.WriteLine ("");
-				/*int tam = 1000;
-				for(int i=0; i<que.Length; i+=tam){
-					writer.Write (que.Substring(i, que.Length-i>tam?tam:que.Length-i));
-				}*/
 				writer.Write (que);
 				writer.Flush();
 
@@ -117,10 +122,11 @@ namespace M3U8downloader
 		
 		public bool EnviaRaw(String contentType, byte[] contenido){
 			try {
+				DDebug.WriteLine ("Enviando desde EnviaRaw");
+
 				writer.WriteLine ("HTTP/1.1 200 OK");
 				writer.WriteLine ("Connection: Close");
 				writer.WriteLine ("Content-Type: "+contentType);
-				//writer.WriteLine ("Content-Length: " + contenido.Length);
 
 				writer.WriteLine ("");
 				writer.Flush();
@@ -138,6 +144,8 @@ namespace M3U8downloader
 		public bool EnviaLocation (String que)
 		{
 			try {
+				DDebug.WriteLine ("EnviaLocation");
+
 				writer.WriteLine ("HTTP/1.1 301 OK");
 				writer.WriteLine ("Location: " + que);
 				writer.WriteLine ("Content-Length: 0");
@@ -157,9 +165,11 @@ namespace M3U8downloader
 		public void CierraCliente ()
 		{
 			try{
+				DDebug.WriteLine ("CierraCliente");
+
 				this.writer.Close ();
 				this.stream.Close ();
-				//Console.WriteLine("Cliente cerrado.");
+				DDebug.WriteLine("Cliente cerrado.");
 			}
 			catch(Exception e){
 				Console.WriteLine("h4");
@@ -170,6 +180,8 @@ namespace M3U8downloader
 		public void Cierra ()
 		{
 			try{
+				DDebug.WriteLine ("Cierra");
+
 				CierraCliente();
 				this.listener.Stop ();
 				Console.WriteLine("Servidor cerrado.");
