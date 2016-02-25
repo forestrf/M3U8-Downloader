@@ -54,7 +54,7 @@ namespace M3U8downloader
 
 				if (url.IndexOf ("http://") != 0 && url.IndexOf ("https://") != 0) {
 					Console.WriteLine ("URL invalida. La URL debe comenzar por \"http://\" o \"https://\"");
-					fallado = "URL invalida";
+					fallado = MainClass.html.GetTXTInvalidURL();
 					MainClass.descargasEnProceso.Add (this);
 					return false;
 				}
@@ -65,7 +65,7 @@ namespace M3U8downloader
 					m3u8 = webClient.DownloadString (url);
 				} catch (Exception e) {
 					Console.WriteLine ("No se pudo descargar la URL: \"" + url + "\"");
-					fallado = "Error al descargar la URL";
+					fallado = MainClass.html.GetTXTErrorDownloadingURL();
 					MainClass.descargasEnProceso.Add (this);
 					return false;
 				}
@@ -96,7 +96,7 @@ namespace M3U8downloader
 				}
 			} else {
 				Console.WriteLine ("Formato de m3u8 no soportado");
-				fallado = "M3U8 no soportado";
+				fallado = MainClass.html.GetTXTM3U8Unsupported();
 				MainClass.descargasEnProceso.Add (this);
 				return false;
 			}
@@ -130,7 +130,7 @@ namespace M3U8downloader
 			} catch (Exception e) {
 				//En caso de que FFmpeg falle no siempre dara excepcion (por ejemplo, cuando es necesario cambiar de proxy el server los enlaces no funcionan bien, pero no se activa este fallo)
 				Console.WriteLine ("FFMPEG ha fallado.");
-				fallado = "FFMPEG ha fallado";
+				fallado = MainClass.html.GetTXTFFMPEGFail();
 				return false;
 			}
 
@@ -142,7 +142,7 @@ namespace M3U8downloader
 			*/
 
 			if (porcentajeInt == 0)
-				fallado = "Fallo";
+				fallado = MainClass.html.GetTXTFail();
 			else {
 				porcentaje = 100;
 				porcentajeInt = 100;

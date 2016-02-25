@@ -16,6 +16,12 @@ namespace M3U8downloader
 		public virtual string GetListSelection(string options) { return ""; }
 		public virtual string GetClosed() { return ""; }
 		public virtual string GetHelpImageName() { return ""; }
+		public virtual string GetTXTInvalidURL() { return ""; }
+		public virtual string GetTXTErrorDownloadingURL() { return ""; }
+		public virtual string GetTXTM3U8Unsupported() { return ""; }
+		public virtual string GetTXTFFMPEGFail() { return ""; }
+		public virtual string GetTXTFail() { return ""; }
+
 
 		public string GetLanguageList() {
 			string txt = "Change language:<br/>";

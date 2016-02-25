@@ -162,6 +162,26 @@ namespace M3U8downloader
 		public override string GetHelpImageName() {
 			return "M3U8downloader.ayuda_img.png";
 		}
+
+		public override string GetTXTInvalidURL() {
+			return "URL inválida";
+		}
+
+		public override string GetTXTErrorDownloadingURL() {
+			return "Error al descargar la URL";
+		}
+
+		public override string GetTXTM3U8Unsupported() {
+			return "M3U8 no soportado";
+		}
+
+		public override string GetTXTFFMPEGFail() {
+			return "FFMPEG ha fallado";
+		}
+
+		public override string GetTXTFail() {
+			return "Fallo";
+		}
 	}
 }
 
