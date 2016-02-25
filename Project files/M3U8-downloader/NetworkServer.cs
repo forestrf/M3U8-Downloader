@@ -146,7 +146,7 @@ namespace M3U8downloader
 			try {
 				DDebug.WriteLine ("EnviaLocation");
 
-				writer.WriteLine ("HTTP/1.1 301 OK");
+				writer.WriteLine ("HTTP/1.1 302 OK");
 				writer.WriteLine ("Location: " + que);
 				writer.WriteLine ("Content-Length: 0");
 

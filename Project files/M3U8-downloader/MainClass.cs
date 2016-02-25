@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Diagnostics;
 using System.Net;
+using System.Globalization;
 
 namespace M3U8downloader
 {
@@ -17,7 +18,7 @@ namespace M3U8downloader
 		public static string relativePath = "";
 		public static bool desdeServidor = false;
 
-		public static string version = "0.5.1";
+		public static string version = "0.5.2";
 		
 		public static int puerto = 25430;
 
@@ -83,8 +84,11 @@ namespace M3U8downloader
 
 		public static NetworkServer myServer;
 
+		public static HTML html = new HTMLSpanish(); // default
+
 		//Manejo desde HTTP. Todo desde aqui. Una vez terminada la funcion acabara el programa
-		public static void operaDesdeServidor(){
+		public static void operaDesdeServidor() {
+			SelectLanguage(CultureInfo.InstalledUICulture.TwoLetterISOLanguageName);
 
 			//create server and listen from port 25430
 			Console.WriteLine ("Para usar el programa abre en un navegador la siguiente URL:");
@@ -125,7 +129,7 @@ namespace M3U8downloader
 					if (url != "") {
 						string cerrarVentana = GETurl.getParametro ("cerrarVentana");
 						if(cerrarVentana == "" || cerrarVentana == "1"){
-							myServer.Envia(HTML.cierraConJS());
+							myServer.Envia(html.CloseWithJS());
 						}
 						//else if(cerrarVentana == "0" || true){
 						else{
@@ -138,23 +142,29 @@ namespace M3U8downloader
 				}
 
 				if(path == "/ayuda"){
-					myServer.Envia (HTML.getAyuda());
+					myServer.Envia (html.GetHelp());
 					continue;
 				}
 				
 				if(path == "/ayuda/ayuda_prev.png"){
-					byte[] imgBytes = GetILocalFileBytes.Get("M3U8downloader.ayuda_img.png");
+					byte[] imgBytes = GetILocalFileBytes.Get(html.GetHelpImageName());
 					myServer.EnviaRaw ("image/png", imgBytes);
 					continue;
 				}
 				
 				if(path == "/all.css"){
-					myServer.Envia (HTML.getAllcss());
+					myServer.Envia (html.GetAllcss());
 					continue;
 				}
-			
+				
+				if (path.IndexOf("/lang/") == 0) {
+					SelectLanguage(path.Substring("/lang/".Length));
+					myServer.EnviaLocation ("/");
+					continue;
+				}
+
 				if (path == "/" && accion == "") {
-					myServer.Envia (HTML.getIndex());
+					myServer.Envia (html.GetIndex());
 					continue;
 				}
 
@@ -162,7 +172,7 @@ namespace M3U8downloader
 					//Mostrar un alert en caso de que se agregue una nueva descarga para conseguir el focus de la pestaña
 					String opciones = desglosaListaM3U8(GETurl.getParametro("urlm3u8"));
 					if (opciones != "") {
-						myServer.Envia (HTML.getSeleccionLista (opciones));
+						myServer.Envia (html.GetListSelection (opciones));
 					} else {
 						myServer.Envia("No se ha podido descargar la lista m3u8.");
 					}
@@ -172,11 +182,11 @@ namespace M3U8downloader
 				if (accion == "progreso") {
 					//Mostrar un alert en caso de que se agregue una nueva descarga para conseguir el focus de la pestaña
 					if(descargasEnProceso.Count > TempDescargasEnProcesoCantidad){
-						myServer.Envia (HTML.getProgreso("Descarga agregada"));
+						myServer.Envia (html.GetProgress("Descarga agregada"));
 						TempDescargasEnProcesoCantidad = descargasEnProceso.Count;
 					}
 					else{
-						myServer.Envia (HTML.getProgreso());
+						myServer.Envia (html.GetProgress());
 					}
 					continue;
 				}
@@ -194,7 +204,7 @@ namespace M3U8downloader
 					for(int i=0; i< descargasEnProceso.Count; i++){
 						descargasEnProceso[i].Cancelar();
 					}
-					myServer.Envia(HTML.getCerrado());
+					myServer.Envia(html.GetClosed());
 					
 					myServer.Cierra();
 					
@@ -203,6 +213,15 @@ namespace M3U8downloader
 
 
 				myServer.Envia ("Na que hacer");
+			}
+		}
+
+		public static void SelectLanguage(string twoLetterLang) {
+			for (int i = 0; i < HTML.availableLanguages.Length; i++) {
+				if (twoLetterLang == HTML.availableLanguages[i].Key) {
+					html = HTML.availableLanguages[i].Value;
+					return;
+				}
 			}
 		}
 

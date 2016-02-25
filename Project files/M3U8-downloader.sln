@@ -1,7 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-# SharpDevelop 4.4
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3U8-downloader", "M3U8-downloader\M3U8-downloader.csproj", "{4B78A828-6021-4F83-A159-B78972AF24BB}"
 EndProject
 Global
@@ -14,6 +15,9 @@ Global
 		{4B78A828-6021-4F83-A159-B78972AF24BB}.Debug|x86.Build.0 = Debug|x86
 		{4B78A828-6021-4F83-A159-B78972AF24BB}.Release|x86.ActiveCfg = Release|x86
 		{4B78A828-6021-4F83-A159-B78972AF24BB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = M3U8-downloader\M3U8-downloader.csproj
